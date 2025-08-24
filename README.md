@@ -4,6 +4,8 @@ A) Understanding Simple Flask App Skeleton
 
 B) Integrating HTML with Flask Web App
 
+C) HTTP Verbs Get and Post
+
 A) Understanding Simple Flask App Skeleton
 
 ### WSGI Application
@@ -94,3 +96,65 @@ def about():
 return render_template('about.html')
 
 Krish pasted code in templates --> about.html and it worked when we went to "https://127.0.0.1:5000/about"
+
+C) HTTP Verbs Get and Post
+
+## HTTP Verbs has 4 Types - Get, Post, Put, Delete
+
+Here We will learn about Get and Post
+
+1. @app.route("/index"); This will have a parameter in Brackets, which by default be GET
+
+### When we search for "wwww.google.com", it gets connected to a Web Server and from that Server, it is going to interact with "Google Web Application", and the default content that should come will displayed in front of us
+
+### This is a GET Request; We are hitting a URL and getting content; We aren't Posting anything
+
+### He seacrhed for "Krish Naik" in Google and able to get some response;
+
+### This is an example of "Post" Request; In URL, we get as searchquery="KrishNaik"; 
+
+### Some input is going to Web Server and it will interact with Web Application, which in turn communicate to the Database and get that information, crawl that entire information and get the information about "Krish Naik"
+
+2. @app.route("/index",methods=['GET'])
+
+**We used the above same example, but just mentioned "GET" and went to "index" and it was same; as by default GET is method mentioned**
+
+#### 3. Creating a POST Request:
+
+@app.route('/form', methods=['GET','POST'])
+def form():
+  if request.method=='POST':
+      pass
+  return render_template('form.html')
+
+  ### Krish created a 'form.html' to get inputs as a "form" from the user
+
+  ## Form code is (An important part alone): 
+
+  <h1>Submit a form</h1>
+  <form>method="post"
+  <label for="name">Name:</label>
+    <input type="text" id="name" name="name">
+    <input type="submit" value="Submit">
+  </form>
+
+  ### Once he ran in VS Code and go to "https://127.0.0.1:5000/form"; It goes to a "GET REQUEST" and said "Submit a form" ;Gave his name and clicked on "Submit"; But Nothing has happened as we just wrote "pass" in Python code
+
+  **Updating the Python code to Capture it**
+
+  @app.route('/form', methods=['GET','POST'])
+def form():
+  if request.method=='POST':
+      name=request.form['name']
+      return f'Hello {name}!'
+  return render_template('form.html')
+
+### This is one route we are handling both "GET" and "POST"
+
+### Id=name in "form.html" file; So we are retrieving it in POST Method
+
+### Once we ran it in VS Code; Once Krish typed his name and submit it; It took to fresh page and showed "Hello Krish Naik"
+
+### What happened - The POST request got successful, it is retrieving the name and showing "Hello Krish Naik"
+
+**POST we can redirect it to another HTML Page; We will see also how we can use the name to that particular HTML Page; That is where JINJA2 technique will come; We will learn later in this course**
